@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: airbnb          # El nombre de la fuente, que se usará para referenciarla en los modelos.
+    schema: raw           # El esquema en el que se encuentran las tablas de esta fuente.
+    tables:
+      - name: listings                # El nombre de la tabla dentro de la fuente, que se usará para referenciarla en los modelos.
+        identifier: raw_listings      # El nombre real de la tabla en la base de datos, que puede ser diferente al nombre usado para referenciarla en los modelos.
+
+      - name: hosts
+        identifier: raw_hosts
+
+      - name: reviews
+        identifier: raw_reviews
+        config:
+          loaded_at_field: date      # El nombre de la columna que indica cuándo se cargaron los datos, lo que permite a dbt realizar un seguimiento de la frescura de los datos.
+          freshness:
+            warn_after: {count: 1, period: hour}
+            error_after: {count: 24, period: hour}
