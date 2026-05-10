@@ -16,8 +16,6 @@ SELECT
     ELSE 'full moon'
   END AS is_full_moon
 FROM
-  fct_reviews
-  r
-  LEFT JOIN full_moon_dates
-  fm
+  fct_reviews as r
+  LEFT JOIN full_moon_dates as fm
   ON (TO_DATE(r.review_date) = DATEADD(DAY, 1, fm.full_moon_date)) -- DATEADD añade un día a la fecha de luna llena para comparar con la fecha de revisión.
